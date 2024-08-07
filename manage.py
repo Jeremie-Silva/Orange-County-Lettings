@@ -1,3 +1,5 @@
+"""This module provides by Django manages the project."""
+
 import os
 import sys
 

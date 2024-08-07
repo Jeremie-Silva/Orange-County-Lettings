@@ -1,3 +1,8 @@
+"""This module provides views for the website application.
+Functions:
+    - index(): view for index page.
+"""
+
 from django.shortcuts import render
 
 
@@ -8,4 +13,10 @@ from django.shortcuts import render
 # Aliquam vitae erat ac orci placerat luctus. Nullam elementum urna nisi, pellentesque iaculis
 # enim cursus in. Praesent volutpat porttitor magna, non finibus neque cursus id.
 def index(request):
+    """Render the index page for the website application.
+    Args:
+        request (HttpRequest): The HTTP request object that contains metadata about the request.
+    Returns:
+        HttpResponse: The HTTP response object containing the rendered index page.
+    """
     return render(request, 'oc_lettings_site/index.html')

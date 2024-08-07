@@ -1,3 +1,5 @@
+"""This module provides by Django manages the wsgi server."""
+
 import os
 
 from django.core.wsgi import get_wsgi_application

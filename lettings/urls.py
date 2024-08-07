@@ -1,3 +1,5 @@
+"""This module provides urls for the Lettings application. It contains a namespace"""
+
 from django.urls import path
 from . import views
 

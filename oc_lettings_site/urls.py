@@ -1,3 +1,5 @@
+"""This module provides urls for the website application. It manages the static part"""
+
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings

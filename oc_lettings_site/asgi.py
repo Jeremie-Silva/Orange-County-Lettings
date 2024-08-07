@@ -1,3 +1,5 @@
+"""This module provides by Django manages the asgi server."""
+
 import os
 
 from django.core.asgi import get_asgi_application

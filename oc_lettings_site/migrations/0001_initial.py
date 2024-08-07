@@ -7,6 +7,14 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
+    """This migration creates the `Address`, `Profile` and `Letting`
+    models in the 'oc_lettings_site' app.
+
+    Attributes:
+        initial (bool): Indicates whether this is an initial migration.
+        dependencies (list):Specifies the migration dependencies.
+        operations (list): A list of operations to be performed in this migration.
+    """
 
     initial = True
 

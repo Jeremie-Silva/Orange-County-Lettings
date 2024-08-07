@@ -1,3 +1,5 @@
+"""This module provides by Django manages the settings of the project."""
+
 import os
 
 from pathlib import Path

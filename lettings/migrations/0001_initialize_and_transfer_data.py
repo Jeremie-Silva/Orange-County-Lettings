@@ -6,6 +6,17 @@ import django.db.models.deletion
 
 
 def transfer_data(apps, schema_editor) -> None:
+    """This function is intended to be used in a Django migration to transfer Address and Letting
+    data from the old models in the oc_lettings_site app to the new models in the lettings app.
+
+    Args:
+        apps (Apps): An instance that gives access to the historical versions of models.
+        schema_editor (SchemaEditor): The database schema editor responsible
+            for applying the migration.
+
+    Returns:
+        None
+    """
     old_address = apps.get_model('oc_lettings_site', 'Address')
     new_address = apps.get_model('lettings', 'Address')
 
@@ -34,6 +45,18 @@ def transfer_data(apps, schema_editor) -> None:
 
 
 class Migration(migrations.Migration):
+    """This migration creates the `Address` and `Letting` models in the 'lettings' app, then runs
+    a data transfer operation to move existing data from the old models in 'oc_lettings_site'
+    to the newly created models.
+
+    Attributes:
+        initial (bool): Indicates whether this is an initial migration.
+        dependencies (list): Specifies the migration dependencies.
+            This migration depends on the initial migration of the 'oc_lettings_site' app.
+        operations (list): A list of operations to be performed in this migration.
+            This includes creating the new models and running the
+            `transfer_data` function to move the data.
+    """
 
     initial = True
 

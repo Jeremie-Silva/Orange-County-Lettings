@@ -4,6 +4,15 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
+    """This migration delete the `Address`, `Letting` and `Profile`
+    models in the 'oc_lettings_site' app.
+
+    Attributes:
+        dependencies (list): Specifies the migration dependencies
+            This migration depends on the initial migration of the 'oc_lettings_site' app,
+            the initial migration of 'lettings' app and the initial migration of 'profiles' app.
+        operations (list): A list of operations to be performed in this migration.
+    """
 
     dependencies = [
         ('oc_lettings_site', '0001_initial'),
