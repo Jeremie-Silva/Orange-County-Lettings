@@ -4,6 +4,7 @@ Functions:
 """
 
 from django.shortcuts import render
+from sentry_sdk import capture_exception
 
 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie quam lobortis leo
@@ -19,4 +20,8 @@ def index(request):
     Returns:
         HttpResponse: The HTTP response object containing the rendered index page.
     """
-    return render(request, 'oc_lettings_site/index.html')
+    try:
+        return render(request, 'oc_lettings_site/index.html')
+    except Exception as exc:
+        capture_exception(exc)
+        raise

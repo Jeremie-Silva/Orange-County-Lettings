@@ -5,6 +5,7 @@ Functions:
 """
 
 from django.shortcuts import render
+from sentry_sdk import capture_exception
 from .models import Letting
 
 
@@ -18,9 +19,13 @@ def index(request):
     Returns:
         HttpResponse: The HTTP response object containing the rendered index page.
     """
-    lettings_list = Letting.objects.all()
-    context = {'lettings_list': lettings_list}
-    return render(request, 'lettings/index.html', context)
+    try:
+        lettings_list = Letting.objects.all()
+        context = {'lettings_list': lettings_list}
+        return render(request, 'lettings/index.html', context)
+    except Exception as exc:
+        capture_exception(exc)
+        raise
 
 
 # Cras ultricies dignissim purus, vitae hendrerit ex varius non. In accumsan porta nisl id
@@ -39,9 +44,13 @@ def letting(request, letting_id):
     Returns:
         HttpResponse: The HTTP response object containing the rendered item letting page.
     """
-    letting = Letting.objects.get(id=letting_id)
-    context = {
-        'title': letting.title,
-        'address': letting.address,
-    }
-    return render(request, 'lettings/letting.html', context)
+    try:
+        letting = Letting.objects.get(id=letting_id)
+        context = {
+            'title': letting.title,
+            'address': letting.address,
+        }
+        return render(request, 'lettings/letting.html', context)
+    except Exception as exc:
+        capture_exception(exc)
+        raise

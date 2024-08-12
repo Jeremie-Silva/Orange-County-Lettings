@@ -5,6 +5,7 @@ Functions:
 """
 
 from django.shortcuts import render
+from sentry_sdk import capture_exception
 from .models import Profile
 
 
@@ -18,9 +19,13 @@ def index(request):
     Returns:
         HttpResponse: The HTTP response object containing the rendered index page.
     """
-    profiles_list = Profile.objects.all()
-    context = {'profiles_list': profiles_list}
-    return render(request, 'profiles/index.html', context)
+    try:
+        profiles_list = Profile.objects.all()
+        context = {'profiles_list': profiles_list}
+        return render(request, 'profiles/index.html', context)
+    except Exception as exc:
+        capture_exception(exc)
+        raise
 
 
 # Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac laoreet neque quis, pellentesque
@@ -34,6 +39,10 @@ def profile(request, username):
     Returns:
         HttpResponse: The HTTP response object containing the rendered profile item page.
     """
-    profile = Profile.objects.get(user__username=username)
-    context = {'profile': profile}
-    return render(request, 'profiles/profile.html', context)
+    try:
+        profile = Profile.objects.get(user__username=username)
+        context = {'profile': profile}
+        return render(request, 'profiles/profile.html', context)
+    except Exception as exc:
+        capture_exception(exc)
+        raise
