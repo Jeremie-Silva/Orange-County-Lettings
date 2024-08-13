@@ -87,7 +87,7 @@ jobs:
 #          -d '{"clearCache": "clear", "imageUrl": "$DOCKER_IMAGE_NAME:$COMMIT_HASH"}'
         run: |
           COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
-          DOCKER_IMAGE_NAME=mytricks/orange-county-lettings
+          DOCKER_IMAGE_NAME=docker.io/mytricks/orange-county-lettings
           IMAGE_URL="$DOCKER_IMAGE_NAME:$COMMIT_HASH"
           curl -X POST https://api.render.com/v1/services/srv-cqt1d0dsvqrc73fohg9g/deploys \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
