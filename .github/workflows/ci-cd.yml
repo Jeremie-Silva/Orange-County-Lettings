@@ -67,6 +67,7 @@ jobs:
       - name: Build and Tag Docker Image
         run: |
           COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
+          DOCKER_IMAGE_NAME=mytricks/orange-county-lettings
           docker build -t $DOCKER_IMAGE_NAME:$COMMIT_HASH .
           docker push $DOCKER_IMAGE_NAME:$COMMIT_HASH
 
