@@ -3,6 +3,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
+from unittest.mock import patch
 from django.contrib.auth.models import User
 from .models import Profile
 
@@ -34,6 +35,18 @@ class ProfilesTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "test user")
 
+    @patch("profiles.views.capture_exception")
+    @patch("profiles.views.Profile.objects.all")
+    def test_profile_list_view_sentry_logs(self, mock_all, sentry):
+        """This test forces an exception to be raised in the profile list view,
+        ensuring that the exception handling is given to sentry.
+        """
+        mock_all.side_effect = Exception("Simulated exception")
+        with self.assertRaises(Exception):
+            response = self.client.get(reverse("profiles:index"))
+            self.assertEqual(response.status_code, 500)
+        sentry.assert_called_once()
+
     def test_profile_detail_view(self):
         """This test ensures that the profile detail view is accessible, returns a
         successful response, and displays the correct profile details.
@@ -45,3 +58,15 @@ class ProfilesTests(TestCase):
         self.assertContains(response, "test@email.fr")
         self.assertContains(response, "first name test")
         self.assertContains(response, "last name test")
+
+    @patch("profiles.views.capture_exception")
+    @patch("profiles.views.Profile.objects.get")
+    def test_profile_detail_view_sentry_logs(self, mock_get, sentry):
+        """This test forces an exception to be raised in the profile detail view,
+        ensuring that the exception handling is given to sentry.
+        """
+        mock_get.side_effect = Exception("Simulated exception")
+        with self.assertRaises(Exception):
+            response = self.client.get(reverse("profiles:profile", args=[self.user.username]))
+            self.assertEqual(response.status_code, 500)
+        sentry.assert_called_once()

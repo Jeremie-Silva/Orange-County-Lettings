@@ -2,6 +2,7 @@
 
 
 from django.test import TestCase
+from unittest.mock import patch
 from django.urls import reverse
 
 
@@ -20,9 +21,23 @@ class WebsiteAppTests(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertContains(response, "Resource Not Found", status_code=404)
 
-    def test_500_page(self):
+    @patch("oc_lettings_site.views.render")
+    def test_500_page(self, render):
         """This test ensures that the custom 500 page is displayed when there is a server error."""
+        render.side_effect = Exception("Simulated exception")
         with self.assertRaises(Exception):
-            response = self.client.get(reverse("error"))
+            response = self.client.get(reverse("index"))
             self.assertEqual(response.status_code, 500)
             self.assertContains(response, "Server Error")
+
+    @patch("oc_lettings_site.views.capture_exception")
+    @patch("oc_lettings_site.views.render")
+    def test_home_page_view_sentry_logs(self, render, sentry):
+        """This test forces an exception to be raised in the index view,
+        ensuring that the exception handling is given to sentry.
+        """
+        render.side_effect = Exception("Simulated exception")
+        with self.assertRaises(Exception):
+            response = self.client.get(reverse("index"))
+            self.assertEqual(response.status_code, 500)
+        sentry.assert_called_once()
