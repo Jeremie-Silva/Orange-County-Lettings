@@ -6,16 +6,10 @@ from django.conf import settings
 from django.views.static import serve
 from . import views
 
-from django.shortcuts import render
-
-
-def deploy(request):
-    render(request, 'oc_lettings_site/index.html')
-
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('deploy', deploy, name='deploy'),
+    path('deploy', views.index, name='deploy'),
     path('admin/', admin.site.urls),
     path('lettings/', include('lettings.urls', namespace='lettings')),
     path('profiles/', include('profiles.urls', namespace='profiles')),
