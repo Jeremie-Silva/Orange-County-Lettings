@@ -8,6 +8,7 @@ from . import views
 
 from django.shortcuts import render
 
+
 def deploy(request):
     render(request, 'oc_lettings_site/index.html')
 
