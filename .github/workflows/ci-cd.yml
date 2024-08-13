@@ -84,4 +84,4 @@ jobs:
           curl -X POST https://api.render.com/v1/services/srv-cqt1d0dsvqrc73fohg9g/deploys \
           -H 'Authorization: Bearer ${{ secrets.RENDER_API_KEY }}' \
           -H 'Content-Type: application/json' \
-          -d '{"clearCache": true, "image": "$DOCKER_IMAGE_NAME:$COMMIT_HASH"}'
+          -d '{"image": "$DOCKER_IMAGE_NAME:$COMMIT_HASH"}'
