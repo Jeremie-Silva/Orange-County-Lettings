@@ -63,9 +63,12 @@ jobs:
 
       - name: Build and Tag Docker Image
         run: |
-          DOCKER_IMAGE_NAME=myusername/myapp
           COMMIT_HASH=$(echo $GITHUB_SHA | cut -c1-7)
-          TAG=${{ github.ref == 'refs/heads/master' && echo "latest" || echo $COMMIT_HASH }}
+          if [[ ${{ github.ref }} == 'refs/heads/master' ]]; then
+            TAG=latest
+          else
+            TAG=$COMMIT_HASH
+          fi
           docker build -t $DOCKER_IMAGE_NAME:$TAG .
           docker push $DOCKER_IMAGE_NAME:$TAG
 
