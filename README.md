@@ -19,6 +19,8 @@ pip install -r requirements.txt
 export SECRET_KEY=<value>
 export SENTRY_DSN=<value>
 export ALLOWED_HOSTS=<value>
+python manage.py migrate
+python manage.py collectstatic
 ```
 
 <br/>
@@ -34,9 +36,6 @@ docker container run -d -p 8000:8000 --name app_container -e SECRET_KEY=$SECRET_
 ### lancer les tests en local :
 ```bash
 python manage.py test
-```
-```bash
-pytest
 ```
 
 ### lancer le codingstyle en local :
