@@ -3,29 +3,25 @@
 <html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search &#8212; Orange County Lettings 1.0 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Procédures de Déploiement &#8212; Orange County Lettings 1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
     <link rel="stylesheet" type="text/css" href="_static/basic.css?v=c058f7c8" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
-    
     <script src="_static/documentation_options.js?v=f2a433a1"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/searchtools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
-    <script src="searchindex.js" defer="defer"></script>
-    <meta name="robots" content="noindex" />
-    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="lettings" href="lettings.html" />
+    <link rel="prev" title="Guide d’Utilisation" href="user_guide.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
 
   
   
-
 
   </head><body>
   
@@ -37,33 +33,21 @@
 
           <div class="body" role="main">
             
-  <h1 id="search-documentation">Search</h1>
-  
-  <noscript>
-  <div class="admonition warning">
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
-  </div>
-  </noscript>
-  
-  
-  <p>
-    Searching for multiple words only shows matches that contain
-    all words.
-  </p>
-  
-  
-  <form action="" method="get">
-    <input type="text" name="q" aria-labelledby="search-documentation" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>
-  
-  
-  <div id="search-results"></div>
-  
+  <section id="procedures-de-deploiement">
+<h1>Procédures de Déploiement<a class="headerlink" href="#procedures-de-deploiement" title="Link to this heading">¶</a></h1>
+<p>Déploiement avec Docker :</p>
+<p>Assurez-vous que Docker est installé sur votre machine.</p>
+<p>Construisez l’image Docker :
+docker build -t orange-county-lettings .</p>
+<p>Lancez un conteneur à partir de l’image :
+docker run -d -p 8000:8000 –name app_container -e SECRET_KEY=$SECRET_KEY -e SENTRY_DSN=$SENTRY_DSN -e ALLOWED_HOSTS=$ALLOWED_HOSTS orange-county-lettings</p>
+<p>Accédez à l’application via <a class="reference external" href="http://localhost:8000">http://localhost:8000</a>.</p>
+<p>Déploiement en Production :</p>
+<p>Configurez les variables d’environnement spécifiques à la production (par exemple, pour une base de données PostgreSQL).
+Utilisez un service cloud comme AWS ou Azure pour héberger votre application.
+Suivez les bonnes pratiques de sécurité et de configuration pour le déploiement en production.</p>
+</section>
+
 
           </div>
           
@@ -80,9 +64,18 @@
 
 
 
-<h3>Navigation</h3>
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Guide de démarrage rapide</a></li>
@@ -90,7 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="database.html">Structure de la Base de Données</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">Interfaces Utilisateur</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">Guide d’Utilisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="deployment.html">Procédures de Déploiement</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Procédures de Déploiement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lettings.html">lettings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiles.html">profiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="oc_lettings_site.html">oc_lettings_site</a></li>
@@ -103,6 +96,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="user_guide.html" title="previous chapter">Guide d’Utilisation</a></li>
+      <li>Next: <a href="lettings.html" title="next chapter">lettings</a></li>
   </ul></li>
 </ul>
 </div>
@@ -125,6 +120,9 @@
       Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
       &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
       
+      |
+      <a href="_sources/deployment.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
 
     

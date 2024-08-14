@@ -46,6 +46,7 @@ flake8
 
 ### Générer la documentation en local :
 ```bash
+pip install sphinx
 cd doc
 make html
 ```

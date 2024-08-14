@@ -1,0 +1,15 @@
+Interfaces de Programmation (API)
+=================================
+
+Le projet expose plusieurs API pour interagir avec les données.
+
+API pour les Lettings :
+
+GET /lettings/ : Récupère la liste des lettings.
+GET /lettings/{id}/ : Récupère les détails d'un letting spécifique.
+API pour les Profiles :
+
+GET /profiles/ : Récupère la liste des profiles.
+GET /profiles/{username}/ : Récupère les détails d'un profile spécifique.
+
+
