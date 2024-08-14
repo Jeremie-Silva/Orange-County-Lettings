@@ -1,8 +1,4 @@
-"""This module provides views for the Lettings application.
-Functions:
-    - index(): view for index page.
-    - letting(): view for item page.
-"""
+"""This module provides views for the Lettings application."""
 
 from django.shortcuts import render
 from sentry_sdk import capture_exception

@@ -15,3 +15,9 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
+   lettings
+   profiles
+   oc_lettings_site
+   lettings.migrations
+   profiles.migrations
+   oc_lettings_site.migrations

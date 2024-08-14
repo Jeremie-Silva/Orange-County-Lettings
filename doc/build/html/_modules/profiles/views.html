@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>profiles.views &#8212; Orange County Lettings 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for profiles.views</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module provides views for the Profiles application.</span>
+<span class="sd">Functions:</span>
+<span class="sd">    - index(): view for index page.</span>
+<span class="sd">    - profile(): view for item page.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">sentry_sdk</span> <span class="kn">import</span> <span class="n">capture_exception</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Profile</span>
+
+
+<span class="c1"># Sed placerat quam in pulvinar commodo. Nullam laoreet consectetur ex, sed consequat libero</span>
+<span class="c1"># pulvinar eget. Fusc faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum</span>
+<span class="c1"># lacus d</span>
+<div class="viewcode-block" id="index">
+<a class="viewcode-back" href="../../profiles.html#profiles.views.index">[docs]</a>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render the index page for the Profiles application.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): The HTTP request object that contains metadata about the request.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        HttpResponse: The HTTP response object containing the rendered index page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">profiles_list</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;profiles_list&#39;</span><span class="p">:</span> <span class="n">profiles_list</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;profiles/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">capture_exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+        <span class="k">raise</span></div>
+
+
+
+<span class="c1"># Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac laoreet neque quis, pellentesque</span>
+<span class="c1"># dui. Nullam facilisis pharetra vulputate. Sed tincidunt, dolor id facilisis fringilla, eros leo</span>
+<span class="c1"># tristique lacus, it. Nam aliquam dignissim congue. Pellentesque habitant morbi tristique senectus</span>
+<span class="c1"># et netus et males</span>
+<div class="viewcode-block" id="profile">
+<a class="viewcode-back" href="../../profiles.html#profiles.views.profile">[docs]</a>
+<span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Render the profile item page for the Profiles application.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request (HttpRequest): The HTTP request object that contains metadata about the request.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        HttpResponse: The HTTP response object containing the rendered profile item page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">profile</span> <span class="o">=</span> <span class="n">Profile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user__username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;profile&#39;</span><span class="p">:</span> <span class="n">profile</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;profiles/profile.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">capture_exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+        <span class="k">raise</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Orange County Lettings</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../lettings.migrations.html">lettings.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lettings.html">lettings package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">lettings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../oc_lettings_site.migrations.html">oc_lettings_site.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../oc_lettings_site.html">oc_lettings_site package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../profiles.migrations.html">profiles.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../profiles.html">profiles package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Jérémie Silva.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,7 +1,4 @@
-"""This module provides app management for the Lettings application.
-Classes:
-    - LettingsConfig: Handles the config of Lettings app.
-"""
+"""This module provides app management for the Lettings application."""
 
 
 from django.apps import AppConfig

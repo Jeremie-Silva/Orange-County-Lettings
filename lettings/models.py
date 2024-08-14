@@ -1,8 +1,4 @@
-"""This module provides models for the Lettings application.
-Classes:
-    - Address: Model for addresses data.
-    - Letting: Model for lettings data.
-"""
+"""This module provides models for the Lettings application."""
 
 
 from django.db import models

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lettings.models &#8212; Orange County Lettings 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=c058f7c8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for lettings.models</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This module provides models for the Lettings application.&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.core.validators</span> <span class="kn">import</span> <span class="n">MaxValueValidator</span><span class="p">,</span> <span class="n">MinLengthValidator</span>
+
+
+<div class="viewcode-block" id="Address">
+<a class="viewcode-back" href="../../lettings.html#lettings.models.Address">[docs]</a>
+<span class="k">class</span> <span class="nc">Address</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Model representing an address.</span>
+
+<span class="sd">    The Address model stores detailed information about an address. It is used to associate</span>
+<span class="sd">    specific address information with lettings or other entities within the Lettings application.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        number (int): The street number for the address,</span>
+<span class="sd">            validated to be a positive integer and cannot exceed 9999.</span>
+<span class="sd">        street (str): The street name, limited to 64 characters.</span>
+<span class="sd">        city (str): The city name, limited to 64 characters.</span>
+<span class="sd">        state (str): The state code, which must be exactly 2 characters long.</span>
+<span class="sd">        zip_code (int): The postal code, validated to be a positive integer</span>
+<span class="sd">            and cannot exceed 99999.</span>
+<span class="sd">        country_iso_code (str): The ISO code for the country,</span>
+<span class="sd">            which must be exactly 3 characters long.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __str__(): Returns a string representation of the address, with number and street.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">MaxValueValidator</span><span class="p">(</span><span class="mi">9999</span><span class="p">)])</span>
+    <span class="n">street</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">city</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">MinLengthValidator</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+    <span class="n">zip_code</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">PositiveIntegerField</span><span class="p">(</span><span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">MaxValueValidator</span><span class="p">(</span><span class="mi">99999</span><span class="p">)])</span>
+    <span class="n">country_iso_code</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">MinLengthValidator</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the address, with number and street.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">street</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Meta options for the Address model.</span>
+
+<span class="sd">        The Meta class contains configuration options that apply to the Address model.</span>
+<span class="sd">        It is used to specify the verbose names for the model, both singular and plural.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            verbose_name (str): A human-readable name for the model, used in singular form.</span>
+<span class="sd">            verbose_name_plural (str): A human-readable name for the model, used in plural form.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="s2">&quot;Address&quot;</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s2">&quot;Addresses&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="Letting">
+<a class="viewcode-back" href="../../lettings.html#lettings.models.Letting">[docs]</a>
+<span class="k">class</span> <span class="nc">Letting</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Model representing a letting.</span>
+
+<span class="sd">    The Letting model stores information about a specific letting, each letting is linked</span>
+<span class="sd">    to a single address, forming a one-to-one relationship between Letting and Address.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        title (str): The title of the letting, typically used to identify the letting in listings.</span>
+<span class="sd">        address (Address): A one-to-one relationship with the Address model,</span>
+<span class="sd">            representing the physical location of the letting.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __str__(): Returns a string representation of the letting, with title.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="n">Address</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a string representation of the letting, with title.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Orange County Lettings</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../lettings.migrations.html">lettings.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lettings.html">lettings package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">lettings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../oc_lettings_site.migrations.html">oc_lettings_site.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../oc_lettings_site.html">oc_lettings_site package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../profiles.migrations.html">profiles.migrations package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../profiles.html">profiles package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Jérémie Silva.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.0.2</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
