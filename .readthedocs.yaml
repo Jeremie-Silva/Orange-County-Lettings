@@ -7,3 +7,10 @@ build:
 
 sphinx:
   configuration: doc/source/conf.py
+
+python:
+  install:
+    - requirements: docs/requirements.txt
+
+commands:
+  - make html
