@@ -1,77 +1,45 @@
-## Résumé
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+# Orange County Lettings
+---
+Fork : https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR
 
-Site web d'Orange County Lettings
+### Pré-requis
+Avoir un OS **Linux** avec **Python 3.11** installé  
+<br/>
 
-## Développement local
+### Installation
+Executer ces commandes dans un terminal **bash**
+pour installer le projet
+```bash
+git clone git@github.com:Jeremie-Silva/Orange-County-Lettings.git
+cd Orange-County-Lettings
+virtualenv -p3.11 .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export SECRET_KEY=<value>
+export SENTRY_DSN=<value>
+export ALLOWED_HOSTS=<value>
+```
 
-### Prérequis
+<br/>
 
-- Compte GitHub avec accès en lecture à ce repository
-- Git CLI
-- SQLite3 CLI
-- Interpréteur Python, version 3.6 ou supérieure
+### lancer l'application en local :
+```bash
+python manage.py runserver
+```
+```bash
+docker container run -d -p 8000:8000 --name app_container -e SECRET_KEY=$SECRET_KEY -e SENTRY_DSN=$SENTRY_DSN -e ALLOWED_HOSTS=$ALLOWED_HOSTS mytricks/orange-county-lettings:<selected-tag>
+```
 
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+### lancer les tests en local :
+```bash
+python manage.py test
+```
+```bash
+pytest
+```
 
-### macOS / Linux
-
-#### Cloner le repository
-
-- `cd /path/to/put/project/in`
-- `git clone https://github.com/OpenClassrooms-Student-Center/Python-OC-Lettings-FR.git`
-
-#### Créer l'environnement virtuel
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- `python -m venv venv`
-- `apt-get install python3-venv` (Si l'étape précédente comporte des erreurs avec un paquet non trouvé sur Ubuntu)
-- Activer l'environnement `source venv/bin/activate`
-- Confirmer que la commande `python` exécute l'interpréteur Python dans l'environnement virtuel
-`which python`
-- Confirmer que la version de l'interpréteur Python est la version 3.6 ou supérieure `python --version`
-- Confirmer que la commande `pip` exécute l'exécutable pip dans l'environnement virtuel, `which pip`
-- Pour désactiver l'environnement, `deactivate`
-
-#### Exécuter le site
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
-- `python manage.py runserver`
-- Aller sur `http://localhost:8000` dans un navigateur.
-- Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
-
-#### Linting
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `flake8`
-
-#### Tests unitaires
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- `source venv/bin/activate`
-- `pytest`
-
-#### Base de données
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
-
-#### Panel d'administration
-
-- Aller sur `http://localhost:8000/admin`
-- Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
-
-### Windows
-
-Utilisation de PowerShell, comme ci-dessus sauf :
-
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
-- Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+### lancer le codingstyle en local :
+```bash
+flake8
+```
