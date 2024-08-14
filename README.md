@@ -43,3 +43,9 @@ pytest
 ```bash
 flake8
 ```
+
+### Générer la documentation en local :
+```bash
+cd doc
+make html
+```
